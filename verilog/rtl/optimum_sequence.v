@@ -23,13 +23,13 @@ reg [SEQ_WIDTH-2-1:0] counter = 0;
 
 initial begin
     o_seq = 0;
-    o_e = '1;
+    o_e = {(E_WIDTH){1'b1}};
 end
 
-always_ff @(posedge clk) begin
+always @(posedge clk) begin
     if (rst) begin
         o_seq <= 0;
-        o_e <= '1;
+        o_e <= {(E_WIDTH){1'b1}};
     end else if (i_e < o_e && i_valid) begin
         o_seq <= i_seq;
         o_e <= i_e;

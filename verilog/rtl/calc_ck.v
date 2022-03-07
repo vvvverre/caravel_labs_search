@@ -18,13 +18,14 @@ initial begin
     z = 0;
 end
 
-always_ff @(posedge clk) begin
+reg [7:0] temp;
+integer i;
+always @(posedge clk) begin
     if (rst) begin
         z <= 0;
     end else begin
-        logic [7:0] temp;
         temp = 0;
-        for (int i = 0; i < SEQ_WIDTH; i++) begin
+        for (i = 0; i < SEQ_WIDTH; i++) begin
             if (a[i] == b[i]) begin
                 temp = temp + 1;
             end else begin

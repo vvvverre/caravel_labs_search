@@ -58,6 +58,8 @@ optimum_sequence # (
     .E_WIDTH(E_WIDTH)
 ) opt (
     .clk(clk),
+    .rst(rst),
+    
     .i_seq(seq2),
     .i_e(e),
     .i_valid(e_valid),
@@ -65,7 +67,7 @@ optimum_sequence # (
     .o_e(o_e)
 );
 
-always_ff @(posedge clk)
+always @(posedge clk)
     o_done <= seq_done & ~e_valid & ~rst;
 
 endmodule

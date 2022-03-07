@@ -15,7 +15,7 @@ module calc_ck_pl #
     output reg  [7:0]               z
 );
 
-localparam integer N_STAGES = int'($ceil(real'(SEQ_WIDTH)/STAGE_WIDTH));
+localparam integer N_STAGES = $rtoi($ceil($itor(SEQ_WIDTH)/STAGE_WIDTH));
 localparam integer LAST_STAGE_WIDTH = SEQ_WIDTH - (N_STAGES-1) * STAGE_WIDTH;
 
 wire [7:0] t [N_STAGES-1:0];
@@ -26,7 +26,7 @@ end
 
 genvar ii;
 generate
-    for (ii = 0; ii < N_STAGES-1; ii++) begin
+    for (ii = 0; ii < N_STAGES-1; ii = ii + 1) begin
         calc_ck # (
             .SEQ_WIDTH(STAGE_WIDTH)
         ) inst_calc_ck_ii (
@@ -51,14 +51,16 @@ calc_ck # (
     .z(t[N_STAGES-1])
 );
 
-always_ff @(posedge clk) begin
+reg [7:0] temp;
+integer jj;
+
+always @(posedge clk) begin
     if (rst) begin
-        z <= '0;
+        z <= 0;
     end else begin
-        logic [7:0] temp; 
         temp = 0;
 
-        for (int jj = 0; jj < N_STAGES; jj++) begin
+        for (jj = 0; jj < N_STAGES; jj = jj + 1) begin
             temp = temp + t[jj];
         end
 

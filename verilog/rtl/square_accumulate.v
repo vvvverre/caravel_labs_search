@@ -19,7 +19,8 @@ initial begin
 end
 
 wire signed [15:0] s;
-assign s = 16'($signed(a));
+
+assign s = {{8{a[7]}}, a};
 
 always @(posedge clk)
     if (rst)
