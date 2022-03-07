@@ -9,9 +9,11 @@ module calc_e #
 )
 (
     input  wire                     clk,
+    input  wire                     rst,
+
     input  wire [SEQ_WIDTH-1:0]     i_seq,
     input  wire                     i_valid,
-    output reg  [SEQ_WIDTH-1:0]     o_seq,
+    output wire [SEQ_WIDTH-1:0]     o_seq,
     output wire [E_WIDTH-1:0]       o_e,
     output wire                     o_valid
 );
@@ -31,19 +33,19 @@ assign o_seq = pl_ina[SEQ_WIDTH+1];
 
 
 genvar i;
-generate for (i = 0; i < SEQ_WIDTH-1; i++) begin
+generate for (i = 0; i < SEQ_WIDTH-1; i = i + 1) begin
     initial begin
         pl_inb[i] = 0;
     end
 end endgenerate
-generate for (i = 0; i < SEQ_WIDTH; i++) begin
+generate for (i = 0; i < SEQ_WIDTH; i = i + 1) begin
     initial begin
         pl_ina[i] = 0;
         pl_valid[i] = 0;
     end
 end endgenerate
 
-generate for (i = 0; i < SEQ_WIDTH-1; i++) begin
+generate for (i = 0; i < SEQ_WIDTH-1; i = i + 1) begin
     calc_ck_pl # (
         .SEQ_WIDTH(SEQ_WIDTH-1-i),
         .STAGE_WIDTH(STAGE_WIDTH)
@@ -69,25 +71,25 @@ generate for (i = 0; i < SEQ_WIDTH-1; i++) begin
 end endgenerate
 
 
-always_comb begin
-    pl_ina[0] = i_seq & ~rst;
-    pl_inb[0] = {1'b0, i_seq[SEQ_WIDTH-1:1]} & ~rst;
+always @* begin
+    pl_ina[0] = i_seq & ~{(SEQ_WIDTH){rst}};
+    pl_inb[0] = {1'b0, i_seq[SEQ_WIDTH-1:1]} & ~{(SEQ_WIDTH){rst}};
     pl_valid[0] = i_valid & ~rst;
 end
 
-generate for (i = 1; i < SEQ_WIDTH-1; i++) begin
+generate for (i = 1; i < SEQ_WIDTH-1; i = i + 1) begin
     always @(posedge clk) begin
-        pl_inb[i] <= {1'b0, pl_inb[i-1][SEQ_WIDTH-1:1]} & ~rst;
+        pl_inb[i] <= {1'b0, pl_inb[i-1][SEQ_WIDTH-1:1]} & ~{(SEQ_WIDTH){rst}};
     end
 end endgenerate
 
-generate for (i = 1; i < SEQ_WIDTH + 2; i++) begin
+generate for (i = 1; i < SEQ_WIDTH + 2; i = i + 1) begin
     always @(posedge clk) begin
-        pl_ina[i] <= pl_ina[i-1] & ~rst;
+        pl_ina[i] <= pl_ina[i-1] & ~{(SEQ_WIDTH){rst}};
     end
 end endgenerate
 
-generate for (i = 1; i < SEQ_WIDTH + 2; i++) begin
+generate for (i = 1; i < SEQ_WIDTH + 2; i = i + 1) begin
     always @(posedge clk) begin
         pl_valid[i] <= pl_valid[i-1] & ~rst;
     end

@@ -11,33 +11,36 @@ module sequence_generator#
     input  wire                     clk,
     input  wire                     rst,
 
-    output reg  [SEQ_WIDTH-1:0]     o_seq,
+    output wire [SEQ_WIDTH-1:0]     o_seq,
     output reg                      o_done,
     output reg                      o_valid
 );
 
 localparam LIMIT = 2**(SEQ_WIDTH-FIX_WIDTH-2) - 1;
 reg [SEQ_WIDTH-FIX_WIDTH-2-1:0] counter = 0;
+wire [FIX_WIDTH-1:0] fixed = FIX_SEQ;
 
 initial begin
     o_done = 0;
     o_valid = 0;
 end
 
-always_ff @(posedge clk)
+assign fixed = FIX_SEQ;
+
+always @(posedge clk)
     if (rst)
         counter <= 0;
     else if (o_valid & (counter < LIMIT))
         counter <= counter + 1;
     
 
-always_ff @(posedge clk)
+always @(posedge clk)
     o_done <= (counter == LIMIT) & ~rst;
 
-always_ff @(posedge clk)
+always @(posedge clk)
     o_valid <= ~o_done & ~rst;
 
-assign o_seq = {2'b0, FIX_WIDTH'(FIX_SEQ), counter};
+assign o_seq = {2'b0, fixed, counter};
 
 endmodule
 
