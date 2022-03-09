@@ -22,16 +22,25 @@ set ::env(DESIGN_NAME) user_proj_example
 
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	$script_dir/../../verilog/rtl/user_proj_example.v \
+	$script_dir/../../verilog/rtl/calc_ck.v \
+	$script_dir/../../verilog/rtl/calc_ck_pl.v \
+	$script_dir/../../verilog/rtl/square_accumulate.v \
+	$script_dir/../../verilog/rtl/calc_e.v \
+	$script_dir/../../verilog/rtl/optimum_sequence.v \
+	$script_dir/../../verilog/rtl/sequence_generator.v \
+	$script_dir/../../verilog/rtl/find.v \
+	$script_dir/../../verilog/rtl/wb_interface.v \
+	$script_dir/../../verilog/rtl/wb_find.v"
 
 set ::env(DESIGN_IS_CORE) 0
 
 set ::env(CLOCK_PORT) "wb_clk_i"
-set ::env(CLOCK_NET) "counter.clk"
+set ::env(CLOCK_NET) "wb_find.wb_clk_i"
 set ::env(CLOCK_PERIOD) "10"
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 900 600"
+set ::env(DIE_AREA) "0 0 2000 2500"
 
 set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
