@@ -25,4 +25,14 @@
 `else
     `include "user_project_wrapper.v"
     `include "user_proj_example.v"
+
+    `include "calc_ck.v"
+    `include "calc_ck_pl.v"
+    `include "square_accumulate.v"
+    `include "calc_e.v"
+    `include "sequence_generator.v"
+    `include "optimum_sequence.v"
+    `include "find.v"
+    `include "wb_interface.v"
+    `include "wb_find.v"
 `endif
