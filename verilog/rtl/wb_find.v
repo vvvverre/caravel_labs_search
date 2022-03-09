@@ -10,7 +10,7 @@ module wb_find #
     parameter E_WIDTH = 16,
 
     parameter STAGE_WIDTH = 20,
-    parameter PARALLEL_UNITS = 4
+    parameter PARALLEL_UNITS = 2
 )
 (
     input           wb_clk_i,
@@ -36,6 +36,9 @@ wire [E_WIDTH-1:0]          e [PARALLEL_UNITS-1:0];
 wire [PARALLEL_UNITS-1:0]   done;
 
 wire                        soft_reset;
+
+wire [PARALLEL_UNITS*72-1:0]            seq_packed;
+wire [PARALLEL_UNITS*E_WIDTH-1:0]       e_packed;
 
 
 wb_interface # (
@@ -63,8 +66,8 @@ wb_interface # (
 
     .o_rst(soft_reset),
     
-    .i_seq(seq),
-    .i_e(e),
+    .i_seq(seq_packed),
+    .i_e(e_packed),
     .i_done(done)
 );
 
@@ -86,9 +89,14 @@ generate
             .o_e(e[ii]),
             .o_done(done[ii])
         );
+
+        assign e_packed[(ii+1)*E_WIDTH-1:ii*E_WIDTH] = e[ii];
+        assign seq_packed[ii*72 + SEQ_WIDTH-1:ii*72] = seq[ii];
+        assign seq_packed[(ii+1)*72-1:ii*72+SEQ_WIDTH] = 0;
     end
 endgenerate
 
+//assign e_packed = {e[1], e[0]};
 
 endmodule
 
