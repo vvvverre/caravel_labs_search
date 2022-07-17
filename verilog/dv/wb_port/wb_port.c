@@ -80,7 +80,7 @@ void main()
     // Flag start of the test
 	reg_mprj_datal = 0xAB600000;
 
-    if (*reg_ptr == 0x00000003) {
+    if (*reg_ptr == 0x00000001) {
         reg_mprj_datal = 0xAB610000;
     }
 }
