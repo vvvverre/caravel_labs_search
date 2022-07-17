@@ -40,7 +40,7 @@ module user_proj_example #(
     parameter E_WIDTH = 16,
 
     parameter STAGE_WIDTH = 10,
-    parameter PARALLEL_UNITS = 2
+    parameter PARALLEL_UNITS = 1
 )(
 `ifdef USE_POWER_PINS
     inout vccd1,	// User area 1 1.8V supply

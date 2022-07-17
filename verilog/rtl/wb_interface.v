@@ -4,12 +4,12 @@
 
 module wb_interface #
 (
-    parameter BASE_ADR = 32'h 2000_0000,
+    parameter BASE_ADR = 32'h 3000_0000,
 
     parameter SEQ_WIDTH = 8,
     parameter E_WIDTH = 16,
     
-    parameter PARALLEL_UNITS = 2
+    parameter PARALLEL_UNITS = 1
 )
 (
     input  wire                                 wb_clk_i,
@@ -52,23 +52,13 @@ always @(posedge wb_clk_i) begin
 
         else if (wbs_adr_i == (BASE_ADR | 32'h08)) 
             wbs_dat_o <= {{(32-E_WIDTH){1'b0}}, i_e[E_WIDTH-1:0]};
-        else if (wbs_adr_i == (BASE_ADR | 32'h0C)) 
-            wbs_dat_o <= {{(32-E_WIDTH){1'b0}}, i_e[2*E_WIDTH-1:E_WIDTH]};
-
+            
         else if (wbs_adr_i == (BASE_ADR | 32'h10)) 
             wbs_dat_o <= i_seq[31:0];
         else if (wbs_adr_i == (BASE_ADR | 32'h14)) 
             wbs_dat_o <= i_seq[63:32];
         else if (wbs_adr_i == (BASE_ADR | 32'h18)) 
             wbs_dat_o <= {24'b0, i_seq[71:64]};
-
-        else if (wbs_adr_i == (BASE_ADR | 32'h20)) 
-            wbs_dat_o <= i_seq[103:72];
-        else if (wbs_adr_i == (BASE_ADR | 32'h24)) 
-            wbs_dat_o <= i_seq[135:104];
-        else if (wbs_adr_i == (BASE_ADR | 32'h28)) 
-            wbs_dat_o <= {24'b0, i_seq[143:136]};
-
         else 
             wbs_dat_o <= 0;
     end

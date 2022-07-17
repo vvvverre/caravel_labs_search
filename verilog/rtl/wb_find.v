@@ -9,8 +9,8 @@ module wb_find #
     parameter SEQ_WIDTH = 8,
     parameter E_WIDTH = 16,
 
-    parameter STAGE_WIDTH = 20,
-    parameter PARALLEL_UNITS = 2
+    parameter STAGE_WIDTH = 8,
+    parameter PARALLEL_UNITS = 1
 )
 (
     input           wb_clk_i,
