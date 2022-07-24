@@ -108,11 +108,6 @@ user_proj_example mprj (
     .la_data_out(la_data_out),
     .la_oenb (la_oenb),
 
-    // IO Pads
-
-    .io_in (io_in),
-    .io_out(io_out),
-    .io_oeb(io_oeb),
 
     // IRQ
     .irq(user_irq)

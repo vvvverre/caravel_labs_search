@@ -39,7 +39,7 @@ module user_proj_example #(
     parameter SEQ_WIDTH = 16,
     parameter E_WIDTH = 16,
 
-    parameter STAGE_WIDTH = 10,
+    parameter STAGE_WIDTH = 8,
     parameter PARALLEL_UNITS = 1
 )(
 `ifdef USE_POWER_PINS
@@ -64,24 +64,11 @@ module user_proj_example #(
     output [127:0] la_data_out,
     input  [127:0] la_oenb,
 
-    // IOs
-    input  [`MPRJ_IO_PADS-1:0] io_in,
-    output [`MPRJ_IO_PADS-1:0] io_out,
-    output [`MPRJ_IO_PADS-1:0] io_oeb,
-
     // IRQ
     output [2:0] irq
 );
     wire clk;
     wire rst;
-
-    wire [`MPRJ_IO_PADS-1:0] io_in;
-    wire [`MPRJ_IO_PADS-1:0] io_out;
-    wire [`MPRJ_IO_PADS-1:0] io_oeb;
-
-    // IO
-    assign io_out = 0;
-    assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
 
     // IRQ
     assign irq = 3'b000;	// Unused
