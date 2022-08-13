@@ -27,7 +27,8 @@
 
 void main()
 {
-    unsigned int * reg_ptr = (unsigned int *) 0x30000000;
+    volatile unsigned int * reg_ptr = (unsigned int *) 0x30000000;
+    uint8_t max_seq_width;
 	/* 
 	IO Control Registers
 	| DM     | VTRIP | SLOW  | AN_POL | AN_SEL | AN_EN | MOD_SEL | INP_DIS | HOLDH | OEB_N | MGMT_EN |
@@ -80,7 +81,19 @@ void main()
     // Flag start of the test
 	reg_mprj_datal = 0xAB600000;
 
-    if (*reg_ptr == 0x00000001) {
-        reg_mprj_datal = 0xAB610000;
-    }
+    max_seq_width = *(reg_ptr + 1);
+
+    *(reg_ptr + 2) = 0x80000000 | (max_seq_width - 10);
+    *(reg_ptr + 2) = max_seq_width - 10;
+    
+    while ((*reg_ptr) != 0x01) {}
+
+    *(reg_ptr + 2) = 0x80000000 | (max_seq_width - 12);
+    *(reg_ptr + 2) = max_seq_width - 12;
+    
+    while ((*reg_ptr) != 0x01) {}
+
+    reg_mprj_datal = 0xAB610000;
+
+    for (;;);
 }

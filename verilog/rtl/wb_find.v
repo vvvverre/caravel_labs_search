@@ -35,6 +35,8 @@ wire [SEQ_WIDTH-1:0]        seq [PARALLEL_UNITS-1:0];
 wire [E_WIDTH-1:0]          e [PARALLEL_UNITS-1:0];
 wire [PARALLEL_UNITS-1:0]   done;
 
+wire [6:0]        offset;
+
 wire                        soft_reset;
 
 wire [PARALLEL_UNITS*72-1:0]            seq_packed;
@@ -66,6 +68,8 @@ wb_interface # (
 
     .o_rst(soft_reset),
     
+    .o_offset(offset),
+
     .i_seq(seq_packed),
     .i_e(e_packed),
     .i_done(done)
@@ -85,6 +89,8 @@ generate
             .clk(wb_clk_i),
             .rst(wb_rst_i | soft_reset),
 
+            .i_offset(offset),
+
             .o_seq(seq[ii]),
             .o_e(e[ii]),
             .o_done(done[ii])
@@ -92,7 +98,8 @@ generate
 
         assign e_packed[(ii+1)*E_WIDTH-1:ii*E_WIDTH] = e[ii];
         assign seq_packed[ii*72 + SEQ_WIDTH-1:ii*72] = seq[ii];
-        assign seq_packed[(ii+1)*72-1:ii*72+SEQ_WIDTH] = 0;
+        if (SEQ_WIDTH < 72)
+            assign seq_packed[(ii+1)*72-1:ii*72+SEQ_WIDTH] = 0;
     end
 endgenerate
 

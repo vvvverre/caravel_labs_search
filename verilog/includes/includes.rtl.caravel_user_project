@@ -7,9 +7,10 @@
 -v $(USER_PROJECT_VERILOG)/rtl/find.v
 -v $(USER_PROJECT_VERILOG)/rtl/sequence_generator.v
 -v $(USER_PROJECT_VERILOG)/rtl/optimum_sequence.v
--v $(USER_PROJECT_VERILOG)/rtl/calc_e.v
--v $(USER_PROJECT_VERILOG)/rtl/calc_ck_pl.v
+-v $(USER_PROJECT_VERILOG)/rtl/calc_e_pl.v
+-v $(USER_PROJECT_VERILOG)/rtl/calc_ck_split.v
 -v $(USER_PROJECT_VERILOG)/rtl/calc_ck.v
 -v $(USER_PROJECT_VERILOG)/rtl/square_accumulate.v
+-v $(USER_PROJECT_VERILOG)/rtl/gen_mask.v
 
  

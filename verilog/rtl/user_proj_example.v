@@ -36,8 +36,8 @@
  */
 
 module user_proj_example #(
-    parameter SEQ_WIDTH = 16,
-    parameter E_WIDTH = 16,
+    parameter SEQ_WIDTH = 72,
+    parameter E_WIDTH = 20,
 
     parameter STAGE_WIDTH = 8,
     parameter PARALLEL_UNITS = 1

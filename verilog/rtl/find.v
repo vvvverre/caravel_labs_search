@@ -13,16 +13,31 @@ module find #
     input  wire                     clk,
     input  wire                     rst,
 
+    input  wire [6:0]               i_offset,
+
     output wire [SEQ_WIDTH-1:0]     o_seq,
     output wire [E_WIDTH-1:0]       o_e,
     output reg                      o_done
 );
 
 wire [SEQ_WIDTH-1:0] seq, seq2;
+wire [SEQ_WIDTH-1:0] mask;
 wire [E_WIDTH-1:0] e;
 wire seq_valid, e_valid;
 wire seq_done;
+wire i_ready, o_ready;
 
+assign i_ready = 1'b1;
+
+gen_mask # (
+    .SEQ_WIDTH(SEQ_WIDTH)
+) inst_gen_mask (
+    .clk(clk),
+    .rst(rst),
+
+    .i_offset(i_offset),
+    .o_mask(mask)
+);
 
 sequence_generator # (
     .SEQ_WIDTH(SEQ_WIDTH), 
@@ -32,13 +47,16 @@ sequence_generator # (
     .clk(clk),
     .rst(rst),
 
+    .i_ready(o_ready),
+    .i_offset(i_offset),
+
     .o_seq(seq),
     .o_valid(seq_valid),
     .o_done(seq_done)
 );
 
 
-calc_e # (
+calc_e_pl # (
     .SEQ_WIDTH(SEQ_WIDTH),
     .E_WIDTH(E_WIDTH),
     .STAGE_WIDTH(STAGE_WIDTH)
@@ -46,11 +64,16 @@ calc_e # (
     .clk(clk),
     .rst(rst),
 
+    .i_offset(i_offset),
+    .i_mask(mask),
     .i_seq(seq),
     .i_valid(seq_valid),
+    .i_ready(i_ready),
+
     .o_seq(seq2),
     .o_e(e),
-    .o_valid(e_valid)
+    .o_valid(e_valid),
+    .o_ready(o_ready)
 );
 
 optimum_sequence # (

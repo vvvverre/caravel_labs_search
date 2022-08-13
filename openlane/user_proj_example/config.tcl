@@ -24,9 +24,10 @@ set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/user_proj_example.v \
 	$script_dir/../../verilog/rtl/calc_ck.v \
-	$script_dir/../../verilog/rtl/calc_ck_pl.v \
+	$script_dir/../../verilog/rtl/calc_ck_split.v \
+	$script_dir/../../verilog/rtl/gen_mask.v \
 	$script_dir/../../verilog/rtl/square_accumulate.v \
-	$script_dir/../../verilog/rtl/calc_e.v \
+	$script_dir/../../verilog/rtl/calc_e_pl.v \
 	$script_dir/../../verilog/rtl/optimum_sequence.v \
 	$script_dir/../../verilog/rtl/sequence_generator.v \
 	$script_dir/../../verilog/rtl/find.v \
@@ -35,17 +36,28 @@ set ::env(VERILOG_FILES) "\
 
 set ::env(DESIGN_IS_CORE) 0
 
+set ::env(SYNTH_MAX_FANOUT) 12
+
+set ::env(CTS_CLK_BUFFER_LIST) "sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2"
+set ::env(CTS_SINK_CLUSTERING_SIZE) "16"
+set ::env(CLOCK_BUFFER_FANOUT) "16"
+
+#set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 2000
+set ::env(CTS_DISTANCE_BETWEEN_BUFFERS) 150
+
 set ::env(CLOCK_PORT) "wb_clk_i"
 set ::env(CLOCK_NET) "wb_find.wb_clk_i"
-set ::env(CLOCK_PERIOD) "10"
+set ::env(CLOCK_PERIOD) "8"
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 2000 2000"
+set ::env(DIE_AREA) "0 0 2250 2250"
 
 set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
+set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 1
+set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 1
 set ::env(PL_BASIC_PLACEMENT) 0
-set ::env(PL_TARGET_DENSITY) 0.05
+set ::env(PL_TARGET_DENSITY) 0.15
 
 # Maximum layer used for routing is metal 4.
 # This is because this macro will be inserted in a top level (user_project_wrapper) 
@@ -60,4 +72,11 @@ set ::env(GND_NETS) [list {vssd1}]
 
 set ::env(DIODE_INSERTION_STRATEGY) 4 
 # If you're going to use multiple power domains, then disable cvc run.
-set ::env(RUN_CVC) 1
+#set ::env(RUN_CVC) 1
+
+if {[catch {exec nproc} result] == 0} {
+	set ::env(ROUTING_CORES) $result
+} else {
+	set ::env(ROUTING_CORES) 24
+}
+
