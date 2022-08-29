@@ -28,11 +28,8 @@ set ::env(VERILOG_FILES) "\
 	$script_dir/../../verilog/rtl/gen_mask.v \
 	$script_dir/../../verilog/rtl/square_accumulate.v \
 	$script_dir/../../verilog/rtl/calc_e_pl.v \
-	$script_dir/../../verilog/rtl/optimum_sequence.v \
-	$script_dir/../../verilog/rtl/sequence_generator.v \
-	$script_dir/../../verilog/rtl/find.v \
-	$script_dir/../../verilog/rtl/wb_interface.v \
-	$script_dir/../../verilog/rtl/wb_find.v"
+	$script_dir/../../verilog/rtl/wb_interface_e.v \
+	$script_dir/../../verilog/rtl/wb_calc_e.v"
 
 set ::env(DESIGN_IS_CORE) 0
 

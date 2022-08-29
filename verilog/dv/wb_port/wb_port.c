@@ -81,17 +81,30 @@ void main()
     // Flag start of the test
 	reg_mprj_datal = 0xAB600000;
 
+    int redo = 1;
+
+redo_label:
     max_seq_width = *(reg_ptr + 1);
 
-    *(reg_ptr + 2) = 0x80000000 | (max_seq_width - 10);
-    *(reg_ptr + 2) = max_seq_width - 10;
+    *(reg_ptr + 2) = 0x80000000 | (max_seq_width - 20);
+    *(reg_ptr + 2) = max_seq_width - 20;
     
-    while ((*reg_ptr) != 0x01) {}
+    // for (int ii = 0; ii < 4; ii++)
+    //     *(reg_ptr + 4) = 0x0000BEEF + ii;
+    *((uint32_t*) 0x30000010) = 0x0000BEEF;
+    *((uint32_t*) 0x30000010) = 0x0000BEF0;
+    *((uint32_t*) 0x30000010) = 0x0000BEF1;
+    *((uint32_t*) 0x30000010) = 0x0000BEF2;
 
-    *(reg_ptr + 2) = 0x80000000 | (max_seq_width - 12);
-    *(reg_ptr + 2) = max_seq_width - 12;
+    if (redo == 1) {
+        redo = 0;
+        goto redo_label;
+    }
     
-    while ((*reg_ptr) != 0x01) {}
+    for (int ii = 0; ii < 4; ii++) {
+        while (((*reg_ptr) & 1) != 1) ;
+        *(reg_ptr + 3);
+    }
 
     reg_mprj_datal = 0xAB610000;
 

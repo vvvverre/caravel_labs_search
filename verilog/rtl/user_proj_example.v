@@ -36,7 +36,7 @@
  */
 
 module user_proj_example #(
-    parameter SEQ_WIDTH = 72,
+    parameter SEQ_WIDTH = 64,
     parameter E_WIDTH = 20,
 
     parameter STAGE_WIDTH = 8,
@@ -82,13 +82,12 @@ module user_proj_example #(
     assign rst = wb_rst_i;
 
 
-    wb_find #
+    wb_calc_e #
     (
         .SEQ_WIDTH(SEQ_WIDTH),
         .E_WIDTH(E_WIDTH),
 
-        .STAGE_WIDTH(STAGE_WIDTH),
-        .PARALLEL_UNITS(PARALLEL_UNITS)
+        .STAGE_WIDTH(STAGE_WIDTH)
     ) inst_wb_find (
         .wb_clk_i(clk),
         .wb_rst_i(rst),

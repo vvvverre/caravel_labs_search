@@ -2,8 +2,8 @@
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
 
--v $(USER_PROJECT_VERILOG)/rtl/wb_find.v
--v $(USER_PROJECT_VERILOG)/rtl/wb_interface.v
+-v $(USER_PROJECT_VERILOG)/rtl/wb_calc_e.v
+-v $(USER_PROJECT_VERILOG)/rtl/wb_interface_e.v
 -v $(USER_PROJECT_VERILOG)/rtl/find.v
 -v $(USER_PROJECT_VERILOG)/rtl/sequence_generator.v
 -v $(USER_PROJECT_VERILOG)/rtl/optimum_sequence.v
@@ -12,5 +12,7 @@
 -v $(USER_PROJECT_VERILOG)/rtl/calc_ck.v
 -v $(USER_PROJECT_VERILOG)/rtl/square_accumulate.v
 -v $(USER_PROJECT_VERILOG)/rtl/gen_mask.v
+-v $(USER_PROJECT_VERILOG)/rtl/calc_e_buf.v
+-v $(USER_PROJECT_VERILOG)/rtl/sync_fifo.v
 
  
