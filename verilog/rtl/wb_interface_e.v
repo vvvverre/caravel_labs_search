@@ -55,7 +55,7 @@ always @(posedge wb_clk_i)
 // always @(*)
 //     wbs_ack_o = ~wb_rst_i & wbs_cyc_i & wbs_stb_i;
 
-assign o_ready = ~wb_rst_i & (do_read | ~e_reg_valid);
+assign o_ready = ~wb_rst_i & ((do_read && wbs_adr_i == (BASE_ADR | 32'h0C)) | ~e_reg_valid);
 
 always @(posedge wb_clk_i) begin
     if (wb_rst_i) begin
