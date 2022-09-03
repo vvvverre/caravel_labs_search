@@ -1,7 +1,7 @@
 magic
 tech sky130B
 magscale 1 2
-timestamp 1660399113
+timestamp 1661976431
 << nwell >>
 rect 1066 447429 448906 447750
 rect 1066 446341 448906 446907
@@ -416,7 +416,7 @@ rect 1066 2437 448906 3003
 << obsli1 >>
 rect 1104 2159 448868 447729
 << obsm1 >>
-rect 1104 1980 448868 447760
+rect 1104 1640 448868 447760
 << metal2 >>
 rect 21270 0 21326 800
 rect 22098 0 22154 800
@@ -912,8 +912,8 @@ rect 426990 0 427046 800
 rect 427818 0 427874 800
 rect 428646 0 428702 800
 << obsm2 >>
-rect 1584 856 434602 447749
-rect 1584 734 21214 856
+rect 1492 856 434602 447749
+rect 1492 734 21214 856
 rect 21382 734 22042 856
 rect 22210 734 22870 856
 rect 23038 734 23698 856
@@ -1440,11 +1440,8 @@ rect 403568 2128 403888 447760
 rect 418928 2128 419248 447760
 rect 434288 2128 434608 447760
 << obsm4 >>
-rect 34651 3299 34848 67285
-rect 35328 3299 50208 67285
-rect 50688 3299 65568 67285
-rect 66048 3299 80928 67285
-rect 81408 3299 85685 67285
+rect 42747 5067 50208 104277
+rect 50688 5067 65445 104277
 << labels >>
 rlabel metal2 s 426990 0 427046 800 6 irq[0]
 port 1 nsew signal output
@@ -2494,8 +2491,8 @@ port 495 nsew signal input
 string FIXED_BBOX 0 0 450000 450000
 string LEFclass BLOCK
 string LEFview TRUE
-string GDS_END 65321924
-string GDS_FILE /home/wouter/openmpw/caravel_labs_search/openlane/user_proj_example/runs/22_08_13_14_46/results/signoff/user_proj_example.magic.gds
-string GDS_START 1001478
+string GDS_END 69016596
+string GDS_FILE /home/wouter/openmpw/caravel_labs_search/openlane/user_proj_example/runs/22_08_31_20_35/results/signoff/user_proj_example.magic.gds
+string GDS_START 934902
 << end >>
 
