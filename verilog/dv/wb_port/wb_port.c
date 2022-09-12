@@ -96,6 +96,17 @@ void main()
         }
     }
 
+
+    for (int jj = 0; jj < 4; jj++) {
+        for (int ii = 0; ii < 4; ii++)
+            *(reg_ptr + 7) = 0x0000F00D + jj * 4 + ii;
+
+        for (int ii = 0; ii < 4; ii++) {
+            while (((*reg_ptr) & 4) != 4) ;
+            *(reg_ptr + 6);
+        }
+    }
+
     reg_mprj_datal = 0xAB610000;
 
     for (;;);

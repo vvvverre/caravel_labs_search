@@ -88,7 +88,7 @@ module user_proj_example #(
         .E_WIDTH(E_WIDTH),
 
         .STAGE_WIDTH(STAGE_WIDTH)
-    ) inst_wb_find (
+    ) inst_wb_calc_e (
         .wb_clk_i(clk),
         .wb_rst_i(rst),
 
